@@ -66,7 +66,7 @@ if uploaded_file is not None:
     # Display uploaded image
     col1, col2 = st.columns(2)
     with col1:
-        st.image(uploaded_file, caption="Uploaded X-ray", use_column_width=True)
+        st.image(uploaded_file, caption="Uploaded X-ray", use_container_width=True)
 
     # Process
     with st.spinner("Analyzing..."):
@@ -105,9 +105,9 @@ if uploaded_file is not None:
             display_img = np.array(input_image.resize((224, 224))) / 255.0
             display_img = np.stack([display_img] * 3, axis=-1).astype(np.float32)
             overlay = show_cam_on_image(display_img, grayscale_cam, use_rgb=True)
-            st.image(overlay, caption=f"Attention map for: {top_name}", use_column_width=True)
+            st.image(overlay, caption=f"Attention map for: {top_name}", use_container_width=True)
         except Exception as e:
             st.warning(f"Grad-CAM visualization skipped: {e}")
 
 st.markdown("---")
-st.caption("Built by [Your Name] | [University] | [Year]")
+st.caption("Built by [ANTWI ABABIO NATHANIEL] | [KOFORIDUA TECHNICAL UNIVERSITY] | [2026]")
