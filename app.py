@@ -615,37 +615,33 @@ if page == "Dashboard":
             </div>
         """, unsafe_allow_html=True)
     else:
-        rows_html = []
+                rows_html = []
         for s in reversed(st.session_state.studies[-8:]):
             flagged_html = (
                 '<span class="nx-sev nx-sev-high">FLAGGED</span>'
                 if s["flagged"] else
                 '<span class="nx-sev nx-sev-norm">CLEAR</span>'
             )
-            rows_html.append(f"""
-                <tr>
-                    <td>{s["time"]}</td>
-                    <td>{s["filename"][:32]}</td>
-                    <td>{s["top_name"]}</td>
-                    <td>{s["top_score"]*100:.1f}%</td>
-                    <td>{s["elapsed_ms"]:.0f} ms</td>
-                    <td>{flagged_html}</td>
-                </tr>
-            """)
-        st.markdown(f"""
-            <div class="nx-card" style="padding:0;">
-            <table class="nx-table">
-                <thead>
-                    <tr>
-                        <th>Time</th><th>File</th><th>Top Finding</th>
-                        <th>Confidence</th><th>Inference</th><th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>{''.join(rows_html)}</tbody>
-            </table>
-            </div>
-        """, unsafe_allow_html=True)
-
+            rows_html.append(
+                f'<tr>'
+                f'<td>{s["time"]}</td>'
+                f'<td>{s["filename"][:32]}</td>'
+                f'<td>{s["top_name"]}</td>'
+                f'<td>{s["top_score"]*100:.1f}%</td>'
+                f'<td>{s["elapsed_ms"]:.0f} ms</td>'
+                f'<td>{flagged_html}</td>'
+                f'</tr>'
+            )
+        st.markdown(
+            f'<div class="nx-card" style="padding:0;">'
+            f'<table class="nx-table">'
+            f'<thead><tr><th>Time</th><th>File</th><th>Top Finding</th>'
+            f'<th>Confidence</th><th>Inference</th><th>Status</th></tr></thead>'
+            f'<tbody>{"".join(rows_html)}</tbody>'
+            f'</table>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
 
 # ============================================================
 # PAGE: NEW STUDY
