@@ -740,7 +740,6 @@ elif page == "New Study":
                     <span class="nx-chip">LABELS: 18</span>
                 </div>
             """, unsafe_allow_html=True)
-
             rows_html = []
             for name, score in result["pairs"]:
                 sev = severity_of(score, st.session_state.threshold)
@@ -748,25 +747,22 @@ elif page == "New Study":
                 bar_cls = f"nx-bar-{sev}"
                 sev_cls = f"nx-sev-{sev}"
                 width = int(score * 100)
-                rows_html.append(f"""
-                    <div class="nx-row">
-                        <div class="nx-row-label">{name}</div>
-                        <div class="nx-row-bar">
-                            <div class="nx-row-bar-fill {bar_cls}" style="width:{width}%"></div>
-                        </div>
-                        <div class="nx-row-value">{score*100:.1f}%</div>
-                        <div class="nx-row-sev">
-                            <span class="nx-sev {sev_cls}">{sev_label}</span>
-                        </div>
-                    </div>
-                """)
+                rows_html.append(
+                    f'<div class="nx-row">'
+                    f'<div class="nx-row-label">{name}</div>'
+                    f'<div class="nx-row-bar"><div class="nx-row-bar-fill {bar_cls}" style="width:{width}%"></div></div>'
+                    f'<div class="nx-row-value">{score*100:.1f}%</div>'
+                    f'<div class="nx-row-sev"><span class="nx-sev {sev_cls}">{sev_label}</span></div>'
+                    f'</div>'
+                )
 
-            st.markdown(f"""
-                <div class="nx-card">
-                    <div class="nx-card-title">Diagnostic Probabilities</div>
-                    {''.join(rows_html)}
-                </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f'<div class="nx-card">'
+                f'<div class="nx-card-title">Diagnostic Probabilities</div>'
+                f'{"".join(rows_html)}'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
     # Attention map — full width below
     if st.session_state.active_result is not None and st.session_state.active_result.get("cam") is not None:
