@@ -798,38 +798,35 @@ elif page == "Worklist":
             </div>
         """, unsafe_allow_html=True)
     else:
-        rows_html = []
+               rows_html = []
         for i, s in enumerate(st.session_state.studies, 1):
             status = (
                 '<span class="nx-sev nx-sev-high">FLAGGED</span>'
                 if s["flagged"] else
                 '<span class="nx-sev nx-sev-norm">CLEAR</span>'
             )
-            rows_html.append(f"""
-                <tr>
-                    <td>{i:03d}</td>
-                    <td>{s["time"]}</td>
-                    <td>{s["filename"][:40]}</td>
-                    <td>{s["top_name"]}</td>
-                    <td>{s["top_score"]*100:.1f}%</td>
-                    <td>{s["elapsed_ms"]:.0f} ms</td>
-                    <td>{status}</td>
-                </tr>
-            """)
-        st.markdown(f"""
-            <div class="nx-card" style="padding:0;">
-            <table class="nx-table">
-                <thead>
-                    <tr>
-                        <th>#</th><th>Time</th><th>Filename</th>
-                        <th>Top Finding</th><th>Confidence</th>
-                        <th>Inference</th><th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>{''.join(rows_html)}</tbody>
-            </table>
-            </div>
-        """, unsafe_allow_html=True)
+            rows_html.append(
+                f'<tr>'
+                f'<td>{i:03d}</td>'
+                f'<td>{s["time"]}</td>'
+                f'<td>{s["filename"][:40]}</td>'
+                f'<td>{s["top_name"]}</td>'
+                f'<td>{s["top_score"]*100:.1f}%</td>'
+                f'<td>{s["elapsed_ms"]:.0f} ms</td>'
+                f'<td>{status}</td>'
+                f'</tr>'
+            )
+        st.markdown(
+            f'<div class="nx-card" style="padding:0;">'
+            f'<table class="nx-table">'
+            f'<thead><tr><th>#</th><th>Time</th><th>Filename</th>'
+            f'<th>Top Finding</th><th>Confidence</th>'
+            f'<th>Inference</th><th>Status</th></tr></thead>'
+            f'<tbody>{"".join(rows_html)}</tbody>'
+            f'</table>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
 
 
 # ============================================================
