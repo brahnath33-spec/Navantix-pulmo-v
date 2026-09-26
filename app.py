@@ -91,7 +91,7 @@ if uploaded_file is not None:
             st.markdown(report_text)
 
         # Grad-CAM
-        st.subheader("AI Attention Map (Grad-CAM)")
+        st.image(overlay, caption=f"Attention map for: {top_name}", use_container_width=True)
         try:
             top_name, _ = pairs[0]
             top_idx = model.pathologies.index(top_name)
